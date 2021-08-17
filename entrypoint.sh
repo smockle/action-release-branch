@@ -18,14 +18,9 @@ git config credential.helper "store --file=.git/credentials"
 # This associates the API Key with the account
 echo "https://${GH_TOKEN}:@github.com" > .git/credentials
 
-# Update indexed files.
-# Include 'dist' and exclude '.github' and 'src'.
-sed -i"" 's/^dist$//' .gitignore
-echo "" >> .gitignore
-echo ".github" >> .gitignore
-echo "src" >> .gitignore
-
-# Remove ignored files.
+# Remove ignored files. Workflows commonly update `.gitignore`
+# before running `smockle/action-release-branch`, and this
+# updates the files which will be released accordingly.
 git rm -r --cached .
 
 # Stash changed files.
