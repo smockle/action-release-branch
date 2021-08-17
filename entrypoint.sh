@@ -15,15 +15,10 @@ git config --global push.default matching
 # Get the credentials from a file
 git config credential.helper "store --file=.git/credentials"
 
-# This associates the API Key with the account
+# Associate the API key with the account
 echo "https://${GH_TOKEN}:@github.com" > .git/credentials
 
-# Remove ignored files. Workflows commonly update `.gitignore`
-# before running `smockle/action-release-branch`, and this
-# updates the files which will be released accordingly.
-git rm -r --cached .
-
-# Stash changed files.
+# Stash changed files (e.g. those created by a build script).
 git add .
 git stash
 
@@ -32,7 +27,13 @@ git fetch -a
 git checkout -b "${RELEASE_BRANCH}" --track "origin/${RELEASE_BRANCH}"
 git pull origin "${RELEASE_BRANCH}"
 
-# Commit changed files to release branch.
-git stash pop
+# Reconcile changed files, then remove (newly-)ignored files.
+# (`.gitignore` is often updated before
+# `smockle/action-release-branch` runs.)
+git checkout stash -- .
+git rm -r --cached .
+git stash drop
+
+# Update the release branch.
 git commit -am "chore: publish release branch [skip ci]" || true # skip “no changes” error
 git push --force origin HEAD:"refs/heads/${RELEASE_BRANCH}"
