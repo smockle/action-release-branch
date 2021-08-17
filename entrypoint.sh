@@ -32,6 +32,7 @@ git pull origin "${RELEASE_BRANCH}"
 # `smockle/action-release-branch` runs.)
 git checkout stash -- .
 git rm -r --cached .
+git add .
 git stash drop
 
 # Update the release branch.
