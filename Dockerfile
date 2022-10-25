@@ -1,4 +1,4 @@
-FROM node:14-slim
+FROM node:18-slim
 
 LABEL name="action-release-branch"
 LABEL maintainer="Clay Miller <clay@smockle.com>"
