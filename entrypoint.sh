@@ -8,15 +8,15 @@ RELEASE_BRANCH="${1:-dist}"
 # Set the user name and email to match the API token holder
 # This will make sure the git commits will have the correct photo
 # and the user gets the credit for a checkin
-git config --global user.email "${GH_EMAIL}"
-git config --global user.name "${GH_USERNAME}"
+git config --global user.email "${GITHUB_EMAIL}"
+git config --global user.name "${GITHUB_USERNAME}"
 git config --global push.default matching
 
 # Get the credentials from a file
 git config credential.helper "store --file=.git/credentials"
 
 # Associate the API key with the account
-echo "https://${GH_TOKEN}:@github.com" > .git/credentials
+echo "https://${GITHUB_TOKEN}:@github.com" > .git/credentials
 
 # Stash changed files (e.g. those created by a build script).
 git add .
