@@ -10,17 +10,17 @@ Removes source files, then pushes a commit to the release branch.
 
 ## Environment Variables
 
-### `GH_EMAIL`
+### `GITHUB_EMAIL`
 
 **Required** Email address to associate with the release commit.
 
-### `GH_USERNAME`
+### `GITHUB_USERNAME`
 
 **Required** GitHub username to associate with the release commit.
 
-### `GH_TOKEN`
+### `GITHUB_TOKEN`
 
-**Required** A [GitHub token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) with the `repo` scope.
+**Optional** A [GitHub token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) with the `repo` scope, or with the `contents: write` fine-grained permission. By default, [`token` from the `github` context](https://docs.github.com/en/actions/learn-github-actions/contexts#github-context) is used, but this [GitHub Actions-provided token](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret) is scoped to the repo containing your workflow. If you are releasing another repo, you must provide `GITHUB_TOKEN`.
 
 ## Example usage
 
@@ -30,7 +30,6 @@ Removes source files, then pushes a commit to the release branch.
   with:
     release_branch: "dist"
   env:
-    GH_EMAIL: ${{ secrets.GH_EMAIL }}
-    GH_USERNAME: ${{ secrets.GH_USERNAME }}
-    GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    GITHUB_EMAIL: ${{ secrets.GH_EMAIL }}
+    GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
 ```
