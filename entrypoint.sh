@@ -7,7 +7,10 @@ pwd
 ls -ltra
 git config --global --add safe.directory "$(realpath .)"
 
-RELEASE_BRANCH="${1:-dist}"
+GITHUB_EMAIL="${1}"
+GITHUB_USERNAME="${2}"
+GITHUB_TOKEN="${3}"
+RELEASE_BRANCH="${4}"
 
 # Set the user name and email to match the API token holder
 # This will make sure the git commits will have the correct photo
