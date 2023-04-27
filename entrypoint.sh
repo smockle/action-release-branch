@@ -3,10 +3,13 @@
 # and https://github.com/actions/typescript-action#publish-to-a-distribution-branch
 set -eo pipefail
 
-pwd
-ls -ltra
+# Fix 'fatal: not in a git directory'.
+# Details:
+# - https://github.com/actions/checkout/issues/363
+# - https://github.com/actions/checkout/issues/766
 git config --global --add safe.directory "$(realpath .)"
 
+# Set variables from action inputs.
 GITHUB_EMAIL="${1}"
 GITHUB_USERNAME="${2}"
 GITHUB_TOKEN="${3}"
