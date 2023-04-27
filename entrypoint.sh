@@ -3,6 +3,9 @@
 # and https://github.com/actions/typescript-action#publish-to-a-distribution-branch
 set -eo pipefail
 
+pwd
+ls -ltra
+
 RELEASE_BRANCH="${1:-dist}"
 
 # Set the user name and email to match the API token holder
