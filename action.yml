@@ -2,6 +2,16 @@ name: "action-release-branch"
 author: "smockle"
 description: "Removes source files, then pushes a commit to the release branch."
 inputs:
+  email:
+    description: "Email address to associate with the release commit."
+    required: true
+  username:
+    description: "GitHub username to associate with the release commit."
+    required: true
+  token:
+    description: "A GitHub token with the `repo` scope, or with the `contents: write` fine-grained permission. Defaults to 'github.token'."
+    required: false
+    default: ${{ github.token }}
   release_branch:
     description: "Release branch name. Defaults to 'dist'."
     required: false
@@ -10,6 +20,9 @@ runs:
   using: "docker"
   image: "Dockerfile"
   args:
+    - ${{ inputs.email }}
+    - ${{ inputs.username }}
+    - ${{ inputs.token }}
     - ${{ inputs.release_branch }}
 branding:
   icon: "package"

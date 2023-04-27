@@ -3,7 +3,17 @@
 # and https://github.com/actions/typescript-action#publish-to-a-distribution-branch
 set -eo pipefail
 
-RELEASE_BRANCH="${1:-dist}"
+# Fix 'fatal: not in a git directory'.
+# Details:
+# - https://github.com/actions/checkout/issues/363
+# - https://github.com/actions/checkout/issues/766
+git config --global --add safe.directory "$(realpath .)"
+
+# Set variables from action inputs.
+GITHUB_EMAIL="${1}"
+GITHUB_USERNAME="${2}"
+GITHUB_TOKEN="${3}"
+RELEASE_BRANCH="${4}"
 
 # Set the user name and email to match the API token holder
 # This will make sure the git commits will have the correct photo
