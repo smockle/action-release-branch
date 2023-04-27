@@ -5,6 +5,7 @@ set -eo pipefail
 
 pwd
 ls -ltra
+git config --global --add safe.directory "$(realpath .)"
 
 RELEASE_BRANCH="${1:-dist}"
 
